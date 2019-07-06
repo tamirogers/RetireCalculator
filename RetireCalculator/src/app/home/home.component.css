@@ -1,0 +1,78 @@
+
+
+.ret-form {
+    margin-left: 22px;
+    margin-right: 55px;
+    border-radius: 6px;
+    padding: 50px;
+    padding-bottom: 50px;
+    background-color: rgb(197, 215, 231);
+}
+label {
+    font-family: 'Open Sans', serif;
+}
+option {
+    font: inherit;
+}
+select {
+    font: inherit;
+}
+.selectDate {
+    font-weight: bold;
+}
+.retSetText {
+    padding-top: 10px;
+}
+.textNinety {
+    padding-top: 10px;
+}
+
+#resetButton {
+    float: right;
+}
+
+#emailButton {
+    float: left;
+}
+.topSelect1 {
+    float: right;
+    margin-right: 120px;
+}
+.topSelect2 {
+    margin-left: 88px;
+}
+#endYear, #midYear {
+    background-color: rgb(193, 212, 230);
+}
+.topSelect1Label {
+    padding-right: 15px;
+   
+}
+.topSelect2Label {
+    padding-right: 15px;
+}
+ul {
+    text-align: left;
+    list-style-position: inside;
+    margin-left: 190px;
+}
+.bulletsMid {
+    text-align: left;
+    list-style-position: inside;
+    margin-left: 1px;
+}
+.textOne {
+    margin-left: 180px;
+    margin-right: 180px;
+}
+#backHome {
+    margin-bottom: 10px;
+    margin-left: 22PX;
+}
+#pdfVersion {
+    margin-bottom: 20px;
+}
+
+#homeDiv {
+    margin-left: -25px;
+}

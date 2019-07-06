@@ -1,0 +1,106 @@
+
+  <!-- Front only version, No API.  datetime-local  -->
+
+<div class="container" id="pdfVersion">
+
+        <div class="form-group" id="homeDiv" *ngIf="!endYearDetails && !midYearDetails">
+            <h4 class="textOne" style="text-align:center;">This application should be used to calculate the date your retirement notice should be 
+                received by HR in order to receive maximum compensation of your unused leave.</h4>
+            <h3 style="text-align:center;"> Please select which scenario applies to your BISD retirement plans.</h3><br><br><br>
+            <div class="topSelect1"> <label for="topSelect" class="topSelect1Label">Retirement at the <br>End of the School Year:  </label>
+                <button type="button" class="btn btn-light" id="endYear" (click)="togglePage()">{{ endYear }}</button> </div> 
+                <div class="topSelect2"><label for="topSelect2" class="topSelect2Label"> Retirement Prior to the <br>End of the School Year:  </label>
+                <button type="button" class="btn btn-light" id="midYear" (click)="toggleMid()">{{ midYear }}</button> </div> 
+            </div>
+<div *ngIf="midYearDetails">
+    <button type="button" class="btn btn-light" id="backHome" (click)="toggleHome()">{{ backHome }}</button> 
+</div> 
+    <form class="ret-form" *ngIf="midYearDetails" #calcForm="ngForm" novalidate (ngSubmit)="onSubmit(calcForm)">
+        
+        <h4 style="text-align:center;">Compensation for unused leave days will be adjusted accordingly based 
+            on when HR receives written notice.</h4> 
+            <h4 style="text-align:left;">Retirement notice guidelines are as follows:</h4>
+            <ul class="bulletsMid">
+                <li>Written notice must be received by HR 90 calendar days prior to effective date of retirement to receive 100% of the eligible compensation.</li>
+                <li>Written notice must be received by HR 60 calendar days prior to effective date of retirement to receive 75% of the eligible compensation.</li>
+                <li>Written notice must be received by HR 45 calendar days prior to effective date of retirement to receive 50% of the eligible compensation.</li>
+                <li>Written notice received by HR less than 45 calendar days prior to the effective date of retirement, results in receipt of 25% of the eligible compensation.</li>
+            </ul>
+            <h4>Written retirement notice must be submitted to Human Resources in 90/60/45 day increments.  </h4>
+                <h4>Calculate those dates here…</h4>
+        <div class="form-group">
+            <!-- <label for="create-date">Create Date</label>    {{ _retireSet | date: 'longDate' : 'UTC+6'  }}-->
+            <input type="hidden" id="create-date" name="RetireCalculatorCreateDate" [(ngModel)]="RetireCalculatorCreateDate"
+                class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="retireSet">Enter Retirement Date</label>
+            <input type="date" id="retireSet" style="width: 220px" name="RetireCalculatorSetDate" ngModel
+                #RetireCalculatorSetDate="ngModel" [(ngModel)]="retireSet" [(ngModel)]="retireSet60" [(ngModel)]="retireSet45" 
+                class="form-control" />     
+
+        <div *ngIf="_retireSet && _retireSet != 'Thu Jan 01 1970 18:00:00 GMT-0600 (Central Standard Time)'">
+
+            <p class="retSetText"> Your proposed retirement date is: </p>
+            <p class="selectDate"> {{ _retireSet | date: 'longDate' }}</p>
+
+        </div>
+        </div>
+       <div><button type="button" class="btn btn-light" (click)="createThreeDates()">Calculate Dates</button> </div> 
+
+        <div *ngIf="ninetyDaysDate">
+        <div>
+            <!-- need the inputs for the data binding in hide/show -->
+            <input type="hidden" name="RetireCalculatorDay90" value="ninetyDaysDate" ngModel #RetireCalculatorDay90="ngModel"
+            [(ngModel)]="ninetyDaysDate" class="form-control" />
+            <p class="textNinety"> 90 day notice is due to HR by <strong>{{ ninetyDaysDate | date: "longDate" }} </strong> in order to receive 100% of the eligible compensation. </p>
+        </div>
+        <div>
+            <input type="hidden" name="RetireCalculatorDay60" value="sixtyDaysDate" ngModel #RetireCalculatorDay60="ngModel"
+            [(ngModel)]="sixtyDaysDate" class="form-control" />
+            <p>60 day notice is due to HR by <strong>{{ sixtyDaysDate | date: "longDate" }}</strong> in order to receive 75% of the eligible compensation. </p>
+        </div>      
+        <div>
+            <input type="hidden" name="RetireCalculatorDay45" value="fortyDaysDate" ngModel #RetireCalculatorDay45="ngModel"
+            [(ngModel)]="fortyDaysDate" class="form-control" />
+            <p> 45 day notice is due to HR by <strong>{{ fortyDaysDate | date: "longDate" }}</strong>  in order to receive 50% of the eligible compensation. </p>
+            <p>Notices submitted to HR less than 45 calendar days prior to the effective date of retirement will result 
+                in receipt of 25% of the eligible compensation.</p>
+        </div> 
+
+        <div>
+        <a href="https://www.birdvilleschools.net/Domain/4809">Visit Human Resources for more details</a>
+        </div>
+        <br>
+
+       <div> 
+           <!-- <button type="submit" class="btn btn-light">Submit</button> -->
+        <button type="button" class="btn btn-light" id="emailButton" (click)="downloadPdf()">Download PDF</button>
+        <button type="button" class="btn btn-light" id="resetButton" (click)="calcForm.resetForm()">Reset Form</button>
+       </div><br>
+<div>
+    <br><p>Please note that this process does not meet the requirements of a retirement notice.<br>
+        You must submit your written retirement notice to HR in order for your retirement to be official.</p>
+</div>
+        </div>
+
+    </form>
+
+    <div *ngIf="endYearDetails">
+
+        <div *ngIf="endYearDetails">
+                <button type="button" class="btn btn-light" id="backHome" (click)="toggleHomeEnd()">{{ backHome }}</button> 
+        </div> 
+        <H3 style="text-align:center;"> If you plan to retire upon completion of the school year, notice guidelines are: </H3> <br>
+        <H3 style="text-align:left;font-size:20px;margin-left: 230px;">Written notice of retirement should be received by HR:</H3>
+        <ul>
+            <li style="font-size:20px">By March 1 for 100% of eligible compensation </li>
+            <li style="font-size:20px">By April 1 for 75% of eligible compensation </li>
+            <li style="font-size:20px">By May 1 for 50% of eligible compensation </li>
+        </ul>
+        <p style="text-align:left;font-size:16px;margin-left: 230px;">Retirement notices received after May 1 will receive 25% of eligible compensation.</p>
+        <a style="text-align:left;font-size:16px;margin-left: 230px;" href="https://www.birdvilleschools.net/Domain/4809">Visit Human Resources for more details</a>
+    </div>
+
+</div>
